@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="utf8" />
+  <title>Users</title>
+  <style>
+    table {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    thead, tbody {
+      flex: 1;
+    }
+    tbody {
+      display: flex;
+      flex-direction: column;
+    }
+    tr {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    td, th {
+      flex: 1;
+      text-align: center;
+      padding: 5px;
+    }
+    form {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+<h3> Пользователи </h3>
+<hr>
+<table border="1">
+  <tbody>
+  <tr th:each="u : ${users}">
+    <td th:text="${u.id}"/>
+    <td th:text="${u.name}"/>
+    <td th:text="${u.lastName}"/>
+    <td th:text="${u.salary}"/>
+    <td>
+      <form th:method="POST" th:action="@{'/users/' + ${u.id} + '/delete'}">
+        <input type="submit" value="Delete"/>
+      </form>
+    </td>
+
+    <td>
+      <form th:method="GET" th:action="@{'/users/' + ${u.id} + '/refactor'}">
+        <input type="submit" value="Refactor"/>
+      </form>
+    </td>
+
+  </tr>
+  </tbody>
+
+
+</table>
+
+<td>
+  <form th:method="GET" th:action="@{'/users' + '/new'}">
+    <input type="submit" value="Create new user"/>
+  </form>
+</td>
+
+</body>
+</html>
+<!--<head>-->
+<!--  <meta charset="utf8" />-->
+<!--  <title>Users</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h3> Пользователи </h3>-->
+<!--<hr>-->
+<!--<table border= ="1">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th>Id</th>-->
+<!--    <th>Name</th>-->
+<!--    <th>Last Name</th>-->
+<!--    <th>Salary</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr th:each="u : ${users}">-->
+<!--    <td th:text="${u.id}"/>-->
+<!--    <td th:text="${u.name}"/>-->
+<!--    <td th:text="${u.lastName}"/>-->
+<!--    <td th:text="${u.salary}"/>-->
+
+
+<!--    <style>-->
+<!--      #Delete {-->
+<!--        position: fixed;-->
+<!--        top: 1000px;-->
+<!--        right: 155px;-->
+<!--      }-->
+<!--    </style>-->
+
+<!--  <form th:method="POST" th:action="@{/users/{id}(id=${u.getId()})}">-->
+<!--    <input type="submit" value="Delete"/>-->
+<!--  </form>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+
+
+<!--</table>-->
+
+<!--</body>-->
+<!--</html>-->
