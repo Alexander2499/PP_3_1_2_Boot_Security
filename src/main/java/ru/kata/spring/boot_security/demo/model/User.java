@@ -2,8 +2,11 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -14,10 +17,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column
-//    @OneToMany(mappedBy = "roles",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private String name;
 
 
@@ -27,7 +29,10 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(mappedBy = "roles",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User(String name, int salary, String password) {
@@ -36,24 +41,9 @@ public class User {
         this.password = password;
     }
 
+
     public User() {
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 
@@ -65,6 +55,14 @@ public class User {
         this.salary = salary;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -72,7 +70,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     @Override
     public String toString() {
@@ -83,4 +80,5 @@ public class User {
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }

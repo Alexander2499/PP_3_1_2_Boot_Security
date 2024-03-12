@@ -1,12 +1,13 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "roles")
 @Component
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +19,6 @@ public class Role {
     @Column
     private  String role;
 
-    @ManyToOne
-    private User user;
 
 
     public String getName() {
@@ -39,11 +38,10 @@ public class Role {
         this.role = role;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
+
+    @Override
+    public String getAuthority() {
+        return getRole();
     }
 }
