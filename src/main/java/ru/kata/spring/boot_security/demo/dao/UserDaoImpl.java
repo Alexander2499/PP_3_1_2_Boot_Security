@@ -43,7 +43,6 @@ public class UserDaoImpl implements UserDao {
     public void update(int id, User updatedUser) {
         User userToBeUpdated = findUserById(id);
         userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setLastName(updatedUser.getLastName());
         userToBeUpdated.setSalary(updatedUser.getSalary());
 
 //        EntityTransaction transaction = em.getTransaction();

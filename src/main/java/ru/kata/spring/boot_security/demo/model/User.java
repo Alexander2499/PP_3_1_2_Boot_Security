@@ -4,6 +4,8 @@ package ru.kata.spring.boot_security.demo.model;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
@@ -15,20 +17,23 @@ public class User {
     private int id;
 
     @Column
+//    @OneToMany(mappedBy = "roles",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private String name;
-
-    @Column
-    private String lastName;
 
 
     @Column
     private int salary;
 
+    @Column
+    private String password;
 
-    public User(String name, String lastName, int salary) {
+    @OneToMany(mappedBy = "roles",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Role> roles;
+
+    public User(String name, int salary, String password) {
         this.name = name;
-        this.lastName = lastName;
         this.salary = salary;
+        this.password = password;
     }
 
     public User() {
@@ -51,13 +56,6 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public int getSalary() {
         return salary;
@@ -67,13 +65,22 @@ public class User {
         this.salary = salary;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
