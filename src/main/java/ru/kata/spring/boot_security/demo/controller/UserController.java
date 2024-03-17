@@ -50,19 +50,20 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}/refactor")
-    public String refactorUsers(Model model,@PathVariable("id") int id) {
+    public String refactorUsers(Model model,@PathVariable("id") long id) {
         model.addAttribute("user", userService.findUserById(id));
         return "refactor";
     }
 
     @PostMapping("/users/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.update(id, user);
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+        user.setId(id);
+        userService.update(user);
         return "redirect:/users";
     }
 
     @PostMapping("/users/{id}/delete")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/users";
     }

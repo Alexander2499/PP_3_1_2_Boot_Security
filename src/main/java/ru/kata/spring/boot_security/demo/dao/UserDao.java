@@ -14,9 +14,11 @@ public interface UserDao {
 
     public void addUser(User user);
 
-    public User findUserById(int id);
+    public User findUserById(long id);
 
-    public void update(int id, User updatedUser);
+    public User findUserByName(String name);
 
-    public void delete(int id);
+    public void update(User updatedUser);
+
+    public void delete(long id);
 }

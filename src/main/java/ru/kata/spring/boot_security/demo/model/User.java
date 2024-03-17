@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Component
 public class User {
 
     @Id
@@ -22,20 +21,19 @@ public class User {
     @Column
     private String name;
 
-
     @Column
-    private int salary;
+    private long salary;
 
     @Column
     private String password;
 
-    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+//    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
 
-    public User(String name, int salary, String password) {
+    public User(String name, long salary, String password) {
         this.name = name;
         this.salary = salary;
         this.password = password;
@@ -47,11 +45,11 @@ public class User {
     }
 
 
-    public int getSalary() {
+    public long getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(long salary) {
         this.salary = salary;
     }
 
@@ -70,6 +68,22 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 
     @Override
     public String toString() {

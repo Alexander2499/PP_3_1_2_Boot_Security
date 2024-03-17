@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "roles")
-@Component
 public class Role implements GrantedAuthority {
 
     @Id
@@ -18,8 +17,6 @@ public class Role implements GrantedAuthority {
 
     @Column
     private  String role;
-
-
 
     public String getName() {
         return name;
@@ -38,7 +35,13 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String getAuthority() {

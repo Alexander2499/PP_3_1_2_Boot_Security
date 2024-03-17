@@ -11,11 +11,11 @@ import java.util.List;
 public interface UserService {
     List<User> showUsers();
 
-    public void save(User user);
+    void save(User user);
 
-    public User findUserById(int id);
+    User findUserById(long id);
 
-    public void update(int id, User updatedUser);
+    void update(User updatedUser);
 
-    public void delete(int id);
+    void delete(long id);
 }
